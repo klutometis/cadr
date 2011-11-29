@@ -1,3 +1,37 @@
 #+TITLE: README
 Let's implement =c[ad]{2,4}r= (i.e. { =car=, =cdr=, ..., =cddddr= })
-in Clojure.
+in Clojure; according to the following composition table:
+
+#+BEGIN_QUOTE
+#+BEGIN_SRC clojure
+  (caar l)   -> (car (car l))
+  (cadr l)   -> (car (cdr l))
+  (cdar l)   -> (cdr (car l))
+  (cddr l)   -> (cdr (cdr l))
+  (caaar l)  -> (car (car (car l)))
+  (caadr l)  -> (car (car (cdr l)))
+  (cadar l)  -> (car (cdr (car l)))
+  (caddr l)  -> (car (cdr (cdr l)))
+  (cdaar l)  -> (cdr (car (car l)))
+  (cdadr l)  -> (cdr (car (cdr l)))
+  (cddar l)  -> (cdr (cdr (car l)))
+  (cdddr l)  -> (cdr (cdr (cdr l)))
+  (caaaar l) -> (car (car (car (car l))))
+  (caaadr l) -> (car (car (car (cdr l))))
+  (caadar l) -> (car (car (cdr (car l))))
+  (caaddr l) -> (car (car (cdr (cdr l))))
+  (cadaar l) -> (car (cdr (car (car l))))
+  (cadadr l) -> (car (cdr (car (cdr l))))
+  (caddar l) -> (car (cdr (cdr (car l))))
+  (cadddr l) -> (car (cdr (cdr (cdr l))))
+  (cdaaar l) -> (cdr (car (car (car l))))
+  (cdaadr l) -> (cdr (car (car (cdr l))))
+  (cdadar l) -> (cdr (car (cdr (car l))))
+  (cdaddr l) -> (cdr (car (cdr (cdr l))))
+  (cddaar l) -> (cdr (cdr (car (car l))))
+  (cddadr l) -> (cdr (cdr (car (cdr l))))
+  (cdddar l) -> (cdr (cdr (cdr (car l))))
+  (cddddr l) -> (cdr (cdr (cdr (cdr l))))  
+#+END_SRC
+#+END_QUOTE
+
