@@ -1,6 +1,7 @@
 #+TITLE: TODO
 * TODO Also generate docstrings.
-* TODO [[http://en.wikipedia.org/wiki/Kleene_star][Kleene-closure]]
+* DONE [[http://en.wikipedia.org/wiki/Kleene_star][Kleene-closure]]
+  CLOSED: [2011-11-29 Tue 14:40]
   See also: [[http://en.wikipedia.org/wiki/String_(computer_science)#Formal_theory][string]].
 
   #+BEGIN_SRC clojure :tangle kleene-closure.clj :shebang #!/usr/bin/env clj
@@ -60,7 +61,8 @@
              (d d d d))))
     
   #+END_SRC
-* TODO Definitions
+* DONE Definitions
+  CLOSED: [2011-11-29 Tue 14:40]
   #+BEGIN_SRC clojure :tangle definitions.clj :shebang #!/usr/bin/env clj
     (load-file "kleene-closure.clj")
     
@@ -102,7 +104,7 @@
                                         expansion
                                         (recur (cdr composition)
                                                (list (car composition) expansion))))))
-    (debug (cadr '(1 2 3)))
+    (is (= 2 (cadr '(1 2 3))))
     
   #+END_SRC
 

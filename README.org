@@ -34,4 +34,3 @@ in Clojure; according to the following composition table:
   (cddddr l) -> (cdr (cdr (cdr (cdr l))))  
 #+END_SRC
 #+END_QUOTE
-
