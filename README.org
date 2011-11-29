@@ -1,6 +1,6 @@
 #+TITLE: README
-Let's implement =c[ad]{2,4}r= (i.e. { =car=, =cdr=, ..., =cddddr= })
-in Clojure; according to the following composition table:
+Let's implement =c[ad]{2,4}r= (i.e. { =car=, =cdr=, =cadr=, ...,
+=cddddr= }) in Clojure; according to the following composition table:
 
 #+BEGIN_QUOTE
 #+BEGIN_SRC clojure
