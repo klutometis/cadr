@@ -1,0 +1,61 @@
+#+TITLE: TODO
+* TODO [[http://en.wikipedia.org/wiki/Kleene_star][Kleene-closure]]
+  See also: [[http://en.wikipedia.org/wiki/String_(computer_science)#Formal_theory][string]].
+
+  #+BEGIN_SRC clojure :tangle kleene-closure.clj :shebang #!/usr/bin/env clj
+    (use 'clojure.test)
+    (use 'add-classpath.core)
+    (use 'debug.core)
+    
+    (add-classpath "lib/math.combinatorics-0.0.3-SNAPSHOT.jar")
+    (use 'clojure.math.combinatorics)
+    
+    (defn kleene-closure
+      ([alphabet] (kleene-closure alphabet (count alphabet)))
+      ([alphabet upper-bound]
+         (kleene-closure alphabet upper-bound 0))
+      ([alphabet upper-bound lower-bound]
+         (loop [n upper-bound
+                kleene-closure '()]
+           (if (< n lower-bound)
+             kleene-closure
+             (let [kleene-n (selections alphabet n)]
+               (recur (dec n)
+                      (concat kleene-n kleene-closure)))))))
+    
+    (def Σ kleene-closure)
+    
+    (is (= (kleene-closure '[a d] 4)
+           '(()
+             (a)
+             (d)
+             (a a)
+             (a d)
+             (d a)
+             (d d)
+             (a a a)
+             (a a d)
+             (a d a)
+             (a d d)
+             (d a a)
+             (d a d)
+             (d d a)
+             (d d d)
+             (a a a a)
+             (a a a d)
+             (a a d a)
+             (a a d d)
+             (a d a a)
+             (a d a d)
+             (a d d a)
+             (a d d d)
+             (d a a a)
+             (d a a d)
+             (d a d a)
+             (d a d d)
+             (d d a a)
+             (d d a d)
+             (d d d a)
+             (d d d d))))
+    
+  #+END_SRC
