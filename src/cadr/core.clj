@@ -1,8 +1,14 @@
 (ns cadr.core
   (:use [clojure.math.combinatorics :only (selections)]))
 
+;;;; Bounded Kleene closure
+
 (defn kleene-closure
-  ([alphabet] (kleene-closure alphabet (count alphabet)))
+  "Generates the set of all strings of length `lower-bound' to
+`upper-bound' (inclusive) over `alphabet'; for e.g. Σ = {0, 1}, Σ^4_2
+= {00, 01, ..., 1111}."
+  ([alphabet]
+     (kleene-closure alphabet (count alphabet)))
   ([alphabet upper-bound]
      (kleene-closure alphabet upper-bound 0))
   ([alphabet upper-bound lower-bound]
@@ -14,35 +20,43 @@
            (recur (dec n)
                   (concat kleene-n kleene-closure)))))))
 
-(def Σ kleene-closure)
+;;;; Primitives
 
-;;; Primitives
 (def car first)
 (def cdr rest)
 
-(def ^{:private true}
-  infix->primitive
+;;;; Map names to compositions.
+
+(def infix->primitive
+  ^{:doc "Maps the c[ad]+r-infix to a primitive."
+    :private true}
   '{a car
     d cdr})
 
 (defn- infixes->composition [string]
+  "Maps a string of c[ad]+r-infixes to a primitive-composition."
   (cons 'comp (map #(% infix->primitive) string)))
 
 (defn- infixes->name [string]
+  "Maps a string of c[ad]+r-infixes to its function-name."
   (apply (comp symbol str)
          (list "c" (apply str string) "r")))
 
 (def name->composition
-  ^{:private true}
+  ^{:doc "Generates a map of names to compositions; e.g. cadr -> (comp
+  car cdr)."
+    :private true}
   (map #(cons (infixes->name %)
               (infixes->composition %))
        (kleene-closure '(a d) 4 2)))
 
-(defmacro
-  ^{:private true}
-  defn-compositions []
+(defmacro defn-compositions []
+  ^{:doc "Generate definitions from the name -> composition map."
+    :private true}
   `(do ~@(map (fn [[name & composition]]
                 `(defn ~name [cons#] (~composition cons#)))
               name->composition)))
+
+;;;; Evaluate the composition-definitions.
 
 (defn-compositions)
