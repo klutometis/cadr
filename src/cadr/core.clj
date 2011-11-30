@@ -51,7 +51,8 @@
        (kleene-closure '(a d) 4 2)))
 
 (defmacro defn-compositions []
-  ^{:doc "Generate definitions from the name -> composition map."
+  ^{:doc "Generate definitions from the name -> composition map of the
+  form, e.g., `(defn caar [cons] (car (car cons)))'"
     :private true}
   `(do ~@(map (fn [[name & composition]]
                 `(defn ~name [cons#] (~composition cons#)))
